@@ -90,19 +90,28 @@ pause;
 
 fprintf('Running gradient descent ...\n');
 
-% Choose some alpha value
-alpha = 1;
 num_iters = 400;
+theta = zeros(3, 1); % Init Theta and Run Gradient Descent
 
-% Init Theta and Run Gradient Descent
-theta = zeros(3, 1);
+% TODO. Why does running these guys mess up the final theta and J_history?
+
+% alpha = 0.01;
+% [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+% graphCost(J_history, 'b');
+
+% alpha = 0.1;
+% [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+% graphCost(J_history, 'r');
+
+% alpha = 10;
+% [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+% graphCost(J_history, 'b');
+
+alpha = 1;
 [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+graphCost(J_history, 'k');
 
-% Plot the convergence graph
-figure;
-plot(1:numel(J_history), J_history, '-b', 'LineWidth', 2);
-xlabel('Number of iterations');
-ylabel('Cost J');
+hold off;
 
 % Display gradient descent's result
 fprintf('Theta computed from gradient descent: \n');
@@ -113,7 +122,7 @@ fprintf('\n');
 % ====================== YOUR CODE HERE ======================
 % Recall that the first column of X is all-ones. Thus, it does
 % not need to be normalized.
-price = 0; % You should change this
+price = predictPrice(1650, 3, theta, mu, sigma); % You should change this
 
 
 % ============================================================
