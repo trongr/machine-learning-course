@@ -22,7 +22,7 @@ grad = zeros(size(theta));
 
 s = sigmoid(X * theta);
 J = -1/m * (y' * log(s) + (1.-y)' * log(1.-s));
-grad = X' * (s - y);
+grad = 1/m * X' * (s - y);
 
 
 
