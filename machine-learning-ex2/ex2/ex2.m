@@ -122,3 +122,9 @@ fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
+
+grep '55f2fb50c558e85f6500002e.10374.20.mp4' 2015-09-* | tr -s " " | cut -d " " -f 15 | grep -v "-" | paste -sd+ | bc
+> 2848459870653 == 2.8TB
+
+cat viral.txt | sed -e 's/\(.*" "\)\(.*\)\(".*\)/\2/' > useragents.txt
+sort useragents.txt | uniq -c
