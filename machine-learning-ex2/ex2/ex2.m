@@ -35,6 +35,7 @@ fprintf(['Plotting data with + indicating (y = 1) examples and o ' ...
 
 plotData(X, y);
 
+
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
 
