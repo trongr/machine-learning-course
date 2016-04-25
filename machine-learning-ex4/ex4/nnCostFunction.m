@@ -70,7 +70,12 @@ A3 = sigmoid(A2 * Theta2');
 y1 = zeros(size(y, 1), num_labels);
 y1(sub2ind(size(y1), (1:size(y1, 1))', y)) = 1;
 
-J = -1/m * ([y1(:)]' * [log(A3)(:)] + [(1 .- y1)(:)]' * [log(1 .- A3)(:)]); % mach + lambda/2/m * theta' * theta;
+unbiased_Theta1 = Theta1(:, 2:end)(:);
+unbiased_Theta2 = Theta2(:, 2:end)(:);
+
+J = -1/m * (y1(:)' * log(A3)(:) + (1 .- y1)(:)' * log(1 .- A3)(:)) ...
+    + lambda/2/m * [unbiased_Theta1' * unbiased_Theta1 + ...
+                    unbiased_Theta2' * unbiased_Theta2];
 
 
 
