@@ -102,9 +102,13 @@ for i = 1:m
     Delta2 = Delta2 + delta3 * a2';
 end
 
-% mach regularization
-Theta1_grad = 1/m * Delta1;
-Theta2_grad = 1/m * Delta2;
+% regularize all partials, then un-regularize first column
+% corresponding bias units:
+Theta1_grad = 1/m * Delta1 + lambda/m * Theta1;
+Theta1_grad(:, 1) = 1/m * Delta1(:, 1);
+
+Theta2_grad = 1/m * Delta2 + lambda/m * Theta2;
+Theta2_grad(:, 1) = 1/m * Delta2(:, 1);
 
 
 
