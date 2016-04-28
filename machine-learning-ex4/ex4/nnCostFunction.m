@@ -63,10 +63,12 @@ Theta1_grad = zeros(size(Theta1));
 Theta2_grad = zeros(size(Theta2));
 
 X = [ones(m, 1) X];
-A2 = [ones(m, 1) sigmoid(X * Theta1')];
-A3 = sigmoid(A2 * Theta2');
+Z2 = X * Theta1';
+A2 = [ones(m, 1) sigmoid(Z2)];
+Z3 = A2 * Theta2';
+A3 = sigmoid(Z3);
 
-% mach convert y to binary array y1
+% convert y to binary array y1:
 y1 = zeros(size(y, 1), num_labels);
 y1(sub2ind(size(y1), (1:size(y1, 1))', y)) = 1;
 
@@ -77,8 +79,32 @@ J = -1/m * (y1(:)' * log(A3)(:) + (1 .- y1)(:)' * log(1 .- A3)(:)) ...
     + lambda/2/m * [unbiased_Theta1' * unbiased_Theta1 + ...
                     unbiased_Theta2' * unbiased_Theta2];
 
+Delta1 = zeros(size(Theta1));
+Delta2 = zeros(size(Theta2));
 
+for i = 1:m
+    % Reuse results from A3:
+    a1 = X(i, :)';
+    a2 = A2(i, :)';
+    a3 = A3(i, :)';
 
+    % mach try this and make sure it's the same
+    % Alternatively do feed forward one by one:
+    % in the vectorized version above
+    % a1 = X(i, :)';
+    % a2 = [1; sigmoid(Theta1 * a1)];
+    % a3 = sigmoid(Theta2 * a2);
+
+    delta3 = a3 - y1(i, :)';
+    delta2 = (Theta2' * delta3)(2:end) .* sigmoidGradient(Z2(i, :)');
+
+    Delta1 = Delta1 + delta2 * a1';
+    Delta2 = Delta2 + delta3 * a2';
+end
+
+% mach regularization
+Theta1_grad = 1/m * Delta1;
+Theta2_grad = 1/m * Delta2;
 
 
 
