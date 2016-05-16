@@ -216,5 +216,13 @@ for i = 1:length(lambda_vec)
             lambda_vec(i), error_train(i), error_val(i));
 end
 
+% train and compute error on test set using best lambda found from
+% validation
+best_lambda = 3;
+J_test = testBestLambda(X_poly, y, X_poly_test, ytest, best_lambda);
+fprintf("test error %f using best_lambda %f\n", J_test, best_lambda);
+
+
+
 fprintf('Program paused. Press enter to continue.\n');
 pause;
