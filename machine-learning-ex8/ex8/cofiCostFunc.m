@@ -39,7 +39,12 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the
 %                     partial derivatives w.r.t. to each element of Theta
 
+% component-wise multiply by R cause we only want to sum over movies
+% that have been rated by a user:
 J = 1/2 * sum(sum(R .* (X * Theta' - Y).^2));
+
+X_grad = (R .* (X * Theta' - Y)) * Theta;
+Theta_grad = (R .* (X * Theta' - Y))' * X;
 
 % =============================================================
 
