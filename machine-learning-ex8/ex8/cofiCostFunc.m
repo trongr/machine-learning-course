@@ -41,10 +41,13 @@ Theta_grad = zeros(size(Theta));
 
 % component-wise multiply by R cause we only want to sum over movies
 % that have been rated by a user:
-J = 1/2 * sum(sum(R .* (X * Theta' - Y).^2));
+D = (R .* (X * Theta' - Y));
+J = 1/2 * D(:)' * D(:) ...
+    + lambda/2 * Theta(:)' * Theta(:) ...
+    + lambda/2 *     X(:)' *     X(:);
 
-X_grad = (R .* (X * Theta' - Y)) * Theta;
-Theta_grad = (R .* (X * Theta' - Y))' * X;
+X_grad = D * Theta + lambda * X;
+Theta_grad = D' * X + lambda * Theta;
 
 % =============================================================
 
