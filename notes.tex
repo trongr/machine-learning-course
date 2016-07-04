@@ -73,11 +73,11 @@ Can we cross validate to choose the best value $n$ for the number of hidden feat
 \section{Cost Function and Gradient}
 
 \begin{defn}
-Define the collaborative filtering cost function to be the squared error over all parameters $\theta$ and features $x$:
+Define the collaborative filtering cost function to be the squared error over all parameters $\Theta$ and features $X$:
 $$J(X, \Theta) = \frac{1}{2} \sum_{i,j:R_{ij}=1} (\Theta_j \cdot X_i - Y_{ij})^2.$$ 
 \end{defn}
 
-Then the partial derivatives of $J$ with respect to $x$ and $\theta$ are: 
+Then the partial derivatives of $J$ with respect to $X$ and $\Theta$ are: 
 \begin{align*}
 \frac{\partial J}{\partial X_{ik}} &= \sum_{j:R_{ij}=1} (\Theta_j \cdot X_i - Y_{ij}) \Theta_{jk} \\
 \frac{\partial J}{\partial \Theta_{jk}} &= \sum_{i:R_{ij}=1} (\Theta_j \cdot X_i - Y_{ij}) X_{ik}.
@@ -101,8 +101,14 @@ J &= \frac{1}{2}D \cdot D + \frac{\lambda}{2} X \cdot X + \frac{\lambda}{2} \The
 \frac{\partial J}{\partial \Theta} &= D^T X + \lambda \Theta.
 \end{align*}
 
+\section{Some useful matrix derivative formulae}
+
+\begin{prop}
+If $D$ is a matrix and $J = \frac{1}{2} D \cdot D$, then $\frac{\partial J}{\partial D} = D.$
+\end{prop}
+
 \begin{keywords}
-Collaborative filtering, cost function, gradient, regularization.
+Collaborative filtering, cost function, gradient, regularization, null reduction, Frobenius inner product.
 \end{keywords}
 
 \end{document}
