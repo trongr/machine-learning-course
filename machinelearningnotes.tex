@@ -4,8 +4,10 @@
 %\geometry{landscape}                % Activate for for rotated page geometry
 %\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
+\graphicspath{{images/}}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{epstopdf}
+\usepackage{epigraph}
 
 % Computer Concrete
 %\usepackage{concmath}
@@ -13,8 +15,8 @@
 
 % Times variants
 %
-%\usepackage{mathptmx}
-%\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
 %
 %\usepackage[T1]{fontenc}
 %\usepackage{stix}
@@ -27,36 +29,42 @@
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{conj}[thm]{Conjecture}
-\newtheorem{quest}[thm]{Question}
-\newtheorem{defn}[thm]{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{question}[theorem]{Question}
 
 \theoremstyle{definition}
-\newtheorem{e.g.}[thm]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
 \newtheorem*{keywords}{Keywords}
 
 \theoremstyle{remark}
-\newtheorem{rem}[thm]{Remark}
-\newtheorem{note}[thm]{Note}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
 
 \newcommand{\defeq}{\overset{\mathrm{def}}{=}}
 
 \title{Machine Learning Notes}
-\author{N. Trong}
+\author{Nhan Trong}
 \date{\today}                                           % Activate to display a given date or no date
 
 \begin{document}
 \maketitle
+
+\epigraph{Detective Spooner. \textit{Can a robot write a symphony? Can a robot turn a canvas into a beautiful masterpiece?} \\ Robot. \textit{Can you?}}{I, Robot}
 
 \begin{note}
 Refer to assignment PDF's. We'll use the usual subscript indexing notation instead of superscript like the lecture.
 \end{note}
 
 \part{Ex 8. Anomaly Detection and Recommender Systems}
+
+\begin{keywords}
+Collaborative filtering, cost function, gradient, regularization.
+\end{keywords}
 
 \section{Collaborative Filtering Learning Algorithm}
 
@@ -66,16 +74,16 @@ Let $n_m$ be the number of movies, $n_u$ be the number of users. Given rating ma
 These are only example features, since in fact we don't know what features the algorithm will pick up given rating matrix $Y$. The features learned might have nothing to do with common movie genres, for example.
 \end{note}
 
-\begin{quest}
+\begin{question}
 Can we cross validate to choose the best value $n$ for the number of hidden features?
-\end{quest}
+\end{question}
 
 \section{Cost Function and Gradient}
 
-\begin{defn}
-Define the collaborative filtering cost function to be the squared error over all parameters $\theta$ and features $x$:
+\begin{definition}
+Define the collaborative filtering cost function to be the squared error over all parameters $\Theta$ and features $X$:
 $$J(X, \Theta) = \frac{1}{2} \sum_{i,j:R_{ij}=1} (\Theta_j \cdot X_i - Y_{ij})^2.$$ 
-\end{defn}
+\end{definition}
 
 Then the partial derivatives of $J$ with respect to $x$ and $\theta$ are: 
 \begin{align*}
@@ -101,8 +109,24 @@ J &= \frac{1}{2}D \cdot D + \frac{\lambda}{2} X \cdot X + \frac{\lambda}{2} \The
 \frac{\partial J}{\partial \Theta} &= D^T X + \lambda \Theta.
 \end{align*}
 
+\part{Week 10. Large Scale Machine Learning}
+
 \begin{keywords}
-Collaborative filtering, cost function, gradient, regularization.
+Online learning, predicted CTR / click through rate, map-reduce, Hadoop.
 \end{keywords}
+
+\begin{question}
+Can you use, say, Hadoop map-reduce for any generic processing task, e.g. parallel video transcoding?
+\end{question}
+
+\part{Week 11. Application: Photo OCR}
+
+\begin{keywords}
+Photo OCR vs scanned text OCR, text detection, bounding box expansion, character segmentation, character classification, pedestrian detection, sliding window detection, step size / stride, artificial data synthesis, data amplification, ceiling analysis.
+\end{keywords}
+
+\section{Photo OCR Pipeline}
+
+\centerline{\includegraphics[width=1.0\textwidth]{ocrpipeline}}
 
 \end{document}
