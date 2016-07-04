@@ -63,7 +63,7 @@ Refer to assignment PDF's. We'll use the usual subscript indexing notation inste
 \part{Ex 8. Anomaly Detection and Recommender Systems}
 
 \begin{keywords}
-Collaborative filtering, cost function, gradient, regularization.
+Collaborative filtering, cost function, gradient, regularization, null reduction, Frobenius inner product.
 \end{keywords}
 
 \section{Collaborative Filtering Learning Algorithm}
@@ -85,7 +85,7 @@ Define the collaborative filtering cost function to be the squared error over al
 $$J(X, \Theta) = \frac{1}{2} \sum_{i,j:R_{ij}=1} (\Theta_j \cdot X_i - Y_{ij})^2.$$ 
 \end{definition}
 
-Then the partial derivatives of $J$ with respect to $x$ and $\theta$ are: 
+Then the partial derivatives of $J$ with respect to $X$ and $\Theta$ are: 
 \begin{align*}
 \frac{\partial J}{\partial X_{ik}} &= \sum_{j:R_{ij}=1} (\Theta_j \cdot X_i - Y_{ij}) \Theta_{jk} \\
 \frac{\partial J}{\partial \Theta_{jk}} &= \sum_{i:R_{ij}=1} (\Theta_j \cdot X_i - Y_{ij}) X_{ik}.
@@ -108,6 +108,12 @@ J &= \frac{1}{2}D \cdot D + \frac{\lambda}{2} X \cdot X + \frac{\lambda}{2} \The
 \frac{\partial J}{\partial X} &= D \Theta + \lambda X \\
 \frac{\partial J}{\partial \Theta} &= D^T X + \lambda \Theta.
 \end{align*}
+
+\section{Some useful matrix derivative formulae}
+
+\begin{proposition}
+If $D$ is a matrix and $J = \frac{1}{2} D \cdot D$, then $\frac{\partial J}{\partial D} = D.$
+\end{proposition}
 
 \part{Week 10. Large Scale Machine Learning}
 
